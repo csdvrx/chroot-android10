@@ -107,7 +107,7 @@ namespace.default.asan.search.paths = /usr/${LIB}
 namespace.default.permitted.paths = /system/${LIB}
 # along with their symlinks from this same place for the ASAN
 namespace.default.asan.permitted.paths = /system/${LIB}
-" > $CHROOT_PATH/linkerconfig/ld.config.txt || exit -21
+" > $CHROOT_PATH/linkerconfig/ld.config.txt                                     || exit -21
 
 # Add basic networking by populating the dns server iff there's a network connectivity
 # FIXME: this currently requires the genuine ip tool, not busybox ip which doesn't understand -br a
@@ -118,17 +118,17 @@ namespace.default.asan.permitted.paths = /system/${LIB}
      ) \
   || rm -f $CHROOT_PATH/etc/resolv.conf
 
-ls $CHROOT_PATH/system >/dev/null       || mkdir $CHROOT_PATH/system            || exit -21
-ls $CHROOT_PATH/system/bin >/dev/null   || mkdir $CHROOT_PATH/system/bin        || exit -22
-ls $CHROOT_PATH/system/lib >/dev/null   || mkdir $CHROOT_PATH/system/lib        || exit -23
-ls $CHROOT_PATH/system/lib64 >/dev/null || mkdir $CHROOT_PATH/system/lib64      || exit -24
+ls $CHROOT_PATH/system >/dev/null       || mkdir $CHROOT_PATH/system            || exit -22
+ls $CHROOT_PATH/system/bin >/dev/null   || mkdir $CHROOT_PATH/system/bin        || exit -23
+ls $CHROOT_PATH/system/lib >/dev/null   || mkdir $CHROOT_PATH/system/lib        || exit -24
+ls $CHROOT_PATH/system/lib64 >/dev/null || mkdir $CHROOT_PATH/system/lib64      || exit -25
 
 mount | grep $CHROOT_PATH/apex/bin   >/dev/null \
-      || ( mount --bind /apex/com.android.runtime/bin $CHROOT_PATH/system/bin   || exit -25 )
+      || ( mount --bind /apex/com.android.runtime/bin $CHROOT_PATH/system/bin   || exit -26 )
 mount | grep $CHROOT_PATH/system/lib\  >/dev/null \
-      || ( mount --bind /system/lib                   $CHROOT_PATH/system/lib   || exit -26 )
+      || ( mount --bind /system/lib                   $CHROOT_PATH/system/lib   || exit -27 )
 mount | grep $CHROOT_PATH/system/lib64 >/dev/null \
-      || ( mount --bind /system/lib64                 $CHROOT_PATH/system/lib64 || exit -27 )
+      || ( mount --bind /system/lib64                 $CHROOT_PATH/system/lib64 || exit -28 )
 
 #################################################################
 # This only matters if you don't want to run everything as root #
