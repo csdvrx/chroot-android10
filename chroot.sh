@@ -11,6 +11,9 @@ CHROOT_COMMAND=`which chroot`       || exit -1
 # The chroot path which can be anything you want
 CHROOT_PATH=/data/data/com.termux/files
 
+# The job to execute inside (so relative to) the CHROOT_PATH
+CHROOT_JOB=/sbin/ash
+
 # The statically compiled utilities live in sbin
 ls $CHROOT_PATH/sbin  >/dev/null    || exit -2
 
@@ -150,7 +153,7 @@ mount | grep $CHROOT_PATH/system/lib64 >/dev/null \
 #mount -o remount,dev,suid /data
 
 # Finally, what to run in chroot, here just a shell for example
-PATH=/sbin $CHROOT_COMMAND $CHROOT_PATH /sbin/ash
+PATH=/sbin $CHROOT_COMMAND $CHROOT_PATH $CHROOT_JOB
 
 # Cleanup
 umount $CHROOT_PATH/sys
